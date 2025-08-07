@@ -54,6 +54,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               },
               child: Text("로그인"),
             ),
+            ElevatedButton(onPressed: () async {}, child: Text("게스트 로그인")),
           ],
         ),
       ),
