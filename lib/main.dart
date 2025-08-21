@@ -1,4 +1,5 @@
 import 'package:build_up/root/root_screen.dart';
+import 'package:build_up/screens/complate_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,7 +25,19 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(authProvider);
+    return MaterialApp(home: const AuthGate());
+  }
+}
 
-    return MaterialApp(home: user == null ? LoginScreen() : RootScreen());
+class AuthGate extends ConsumerWidget {
+  const AuthGate({super.key});
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(authProvider); // AppUser? (로그인 후 set)
+    if (user == null) return const LoginScreen();
+    if (user.nickname == null || user.nickname!.isEmpty) {
+      return const CompleteProfileScreen();
+    }
+    return const RootScreen();
   }
 }

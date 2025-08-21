@@ -1,4 +1,5 @@
 import 'package:build_up/screens/home_screen.dart';
+import 'package:build_up/screens/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'bottom_nav_provider.dart';
@@ -12,7 +13,7 @@ class RootScreen extends ConsumerWidget {
     final screens = [
       const HomeScreen(),
       // const SearchScreen(),
-      // const SettingsScreen(),
+      const SettingsScreen(),
     ];
 
     return Scaffold(
@@ -23,7 +24,7 @@ class RootScreen extends ConsumerWidget {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: '홈'),
           // BottomNavigationBarItem(icon: Icon(Icons.search), label: '검색'),
-          // BottomNavigationBarItem(icon: Icon(Icons.settings), label: '설정'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: '설정'),
         ],
       ),
     );
