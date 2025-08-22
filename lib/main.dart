@@ -24,20 +24,30 @@ void main() async {
 class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(authProvider);
-    return MaterialApp(home: const AuthGate());
+    return MaterialApp(
+      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.indigo),
+      home: const AuthGate(),
+    );
   }
 }
 
 class AuthGate extends ConsumerWidget {
   const AuthGate({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(authProvider); // AppUser? (로그인 후 set)
-    if (user == null) return const LoginScreen();
-    if (user.nickname == null || user.nickname!.isEmpty) {
-      return const CompleteProfileScreen();
+    final user = ref.watch(authProvider);
+
+    if (user == null) {
+      return const LoginScreen(key: ValueKey('login'));
     }
-    return const RootScreen();
+    if (user.isGuest) return const RootScreen();
+
+    final needsProfile = (user.nickname ?? '').trim().isEmpty; // null-safe
+    if (needsProfile) {
+      return const CompleteProfileScreen(key: ValueKey('complete'));
+    }
+
+    return RootScreen(key: ValueKey('root_${user.uid}'));
   }
 }

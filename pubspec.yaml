@@ -44,7 +44,7 @@ dependencies:
 
   # Nexon API 호출을 위한 HTTP
   http: ^1.1.0
-
+  dio: ^5.5.0
   # 날짜/시간 처리용
   intl: ^0.18.1
 

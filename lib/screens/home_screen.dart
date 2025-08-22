@@ -10,22 +10,23 @@ class HomeScreen extends ConsumerWidget {
     final user = ref.watch(authProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text("환영합니다")),
+      appBar: AppBar(
+        title: Text("환영합니다"),
+        actions: [
+          Text(
+            user?.nickname ?? '',
+            style: TextStyle(
+              color: Colors.black87,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+        centerTitle: true,
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("이메일: ${user?.email ?? ''}"),
-            Text("닉네임: ${user?.nickname ?? ''}"),
-            Text("마지막 로그인: ${user?.lastLogin.toLocal()}"),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                ref.read(authProvider.notifier).logout();
-              },
-              child: Text("로그아웃"),
-            ),
-          ],
+          children: [Text("마지막 로그인: ${user?.lastLogin?.toLocal()}")],
         ),
       ),
     );

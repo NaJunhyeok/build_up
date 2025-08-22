@@ -114,12 +114,6 @@ class SettingsScreen extends ConsumerWidget {
                 if (ok == true) {
                   await ref.read(authProvider.notifier).logout();
                   if (context.mounted) {
-                    // AuthGate 패턴을 쓰면 화면 전환 없이 자동으로 로그인 화면으로 돌아갑니다.
-                    // AuthGate가 없다면 아래처럼 명시적으로 이동하세요.
-                    // Navigator.of(context).pushAndRemoveUntil(
-                    //   MaterialPageRoute(builder: (_) => const LoginScreen()),
-                    //   (_) => false,
-                    // );
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('로그아웃 되었습니다.')),
                     );

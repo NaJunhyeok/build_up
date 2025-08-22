@@ -29,10 +29,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           context,
         ).showSnackBar(const SnackBar(content: Text('Google 로그인 완료')));
         // 필요 시 메인 화면으로 이동
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (_) => const RootScreen()),
-          (_) => false,
-        );
+        // Navigator.of(context).pushAndRemoveUntil(
+        //   MaterialPageRoute(builder: (_) => const RootScreen()),
+        //   (_) => false,
+        // );
       } else {
         ScaffoldMessenger.of(
           context,
@@ -44,20 +44,38 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       appBar: AppBar(title: Text("로그인")),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            ElevatedButton(onPressed: _handleGoogle, child: Text("Google")),
-            ElevatedButton(onPressed: () async {}, child: Text("Kakao")),
-            ElevatedButton(
-              onPressed: () async {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const GuestScreen()),
-                );
-              },
-              child: Text("게스트 로그인"),
-            ),
-          ],
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: _handleGoogle,
+                child: Text(
+                  "구글 로그인",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.black87),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () async {},
+                child: Text(
+                  "카카오 로그인",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.black87),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  await ref.read(authProvider.notifier).guestLogin();
+                },
+                child: Text(
+                  "게스트 로그인",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.black87),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -118,4 +118,9 @@ class AuthNotifier extends StateNotifier<AppUser?> {
   }
 
   void setUser(AppUser user) => state = user;
+
+  Future<void> guestLogin() async {
+    // Supabase 인증 없이 로컬 상태만 게스트로 전환
+    state = AppUser.guest();
+  }
 }
